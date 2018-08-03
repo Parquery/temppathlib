@@ -17,7 +17,7 @@ with open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='temppathlib',
-    version='1.0.1',
+    version='1.0.2',
     description='Wraps tempfile to give you pathlib.Path.',
     long_description=long_description,
     url='https://github.com/Parquery/temppathlib',
