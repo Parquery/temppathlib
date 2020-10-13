@@ -1,7 +1,23 @@
 temppathlib
 ===========
 
-temppathlib provides wrappers around ``tempfile`` so that you can directly use them together with ``pathlib`` module.
+.. image:: https://github.com/Parquery/temppathlib/workflows/Check-push/badge.svg
+    :target: https://github.com/Parquery/temppathlib/actions?query=workflow%3ACheck-push
+    :alt: Check status
+
+.. image:: https://coveralls.io/repos/github/Parquery/temppathlib/badge.svg?branch=master
+    :target: https://coveralls.io/github/Parquery/temppathlib
+    :alt: Test coverage
+
+.. image:: https://badge.fury.io/py/temppathlib.svg
+    :target: https://pypi.org/project/temppathlib/
+    :alt: PyPI - version
+
+.. image:: https://img.shields.io/pypi/pyversions/temppathlib.svg
+    :target: https://pypi.org/project/temppathlib/
+    :alt: PyPI - Python Version
+
+Temppathlib provides wrappers around ``tempfile`` so that you can directly use them together with ``pathlib`` module.
 We found it cumbersome to convert ``tempfile`` objects manually to ``pathlib.Path`` whenever we needed a temporary
 file.
 
