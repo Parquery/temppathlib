@@ -14,7 +14,7 @@ import temppathlib
 
 
 class TestRemovingTree(unittest.TestCase):
-    def test_that_it_works(self):
+    def test_that_it_works(self) -> None:
         tmp_dir = pathlib.Path(tempfile.mkdtemp())
 
         try:
@@ -36,7 +36,7 @@ class TestRemovingTree(unittest.TestCase):
             if tmp_dir.exists():
                 shutil.rmtree(str(tmp_dir))
 
-    def test_no_enter(self):
+    def test_no_enter(self) -> None:
         tmp_dir = pathlib.Path(tempfile.mkdtemp())
 
         try:
@@ -66,7 +66,7 @@ class TestRemovingTree(unittest.TestCase):
 
 
 class TestTmpDirIfNecessary(unittest.TestCase):
-    def test_with_path_str(self):
+    def test_with_path_str(self) -> None:
         basedir = pathlib.Path(tempfile.mkdtemp())
 
         try:
@@ -79,7 +79,7 @@ class TestTmpDirIfNecessary(unittest.TestCase):
         finally:
             shutil.rmtree(str(basedir))
 
-    def test_with_base_tmp_dir(self):
+    def test_with_base_tmp_dir(self) -> None:
         basedir = pathlib.Path(tempfile.mkdtemp())
 
         try:
@@ -96,11 +96,11 @@ class TestTmpDirIfNecessary(unittest.TestCase):
 
 
 class TestTemporaryDirectory(unittest.TestCase):
-    def test_that_it_works(self):
+    def test_that_it_works(self) -> None:
         tmp_dir = pathlib.Path(tempfile.mkdtemp())
 
         try:
-            another_tmp_dir_pth = pathlib.Path()
+            another_tmp_dir_pth = None  # type: Optional[pathlib.Path]
             with temppathlib.TemporaryDirectory(base_tmp_dir=tmp_dir) as another_tmp_dir:
                 another_tmp_dir_pth = copy.copy(another_tmp_dir.path)
 
@@ -112,13 +112,13 @@ class TestTemporaryDirectory(unittest.TestCase):
             if tmp_dir.exists():
                 shutil.rmtree(str(tmp_dir))
 
-    def test_with_prefix(self):
+    def test_with_prefix(self) -> None:
         with temppathlib.TemporaryDirectory(prefix='some-prefix') as tmp_dir:
             self.assertTrue(tmp_dir.path.name.startswith('some-prefix'))
 
 
 class TestNamedTemporaryFile(unittest.TestCase):
-    def test_that_it_works(self):
+    def test_that_it_works(self) -> None:
         pth = None  # type: Optional[pathlib.Path]
         with temppathlib.NamedTemporaryFile() as tmp:
             self.assertIsNotNone(tmp.file)
@@ -128,7 +128,7 @@ class TestNamedTemporaryFile(unittest.TestCase):
 
         self.assertFalse(pth.exists())
 
-    def test_with_dir(self):
+    def test_with_dir(self) -> None:
         with temppathlib.TemporaryDirectory() as tmp_dir:
             with temppathlib.NamedTemporaryFile(dir=tmp_dir.path) as tmp:
                 self.assertIsNotNone(tmp.file)
