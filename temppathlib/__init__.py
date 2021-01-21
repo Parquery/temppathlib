@@ -241,3 +241,13 @@ class NamedTemporaryFile:
     def __exit__(self, exc_type, exc_val, exc_tb) -> None:  # type: ignore
         """Close the temporary file."""
         self.close()
+
+
+def gettempdir() -> pathlib.Path:
+    """
+    Wrap ``tempfile.gettempdir``.
+
+    Please see the documentation of ``tempfile.gettempdir`` for more details:
+    https://docs.python.org/3/library/tempfile.html#tempfile.gettempdir
+    """
+    return pathlib.Path(tempfile.gettempdir())

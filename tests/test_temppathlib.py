@@ -135,5 +135,13 @@ class TestNamedTemporaryFile(unittest.TestCase):
                 self.assertTrue(tmp.path.exists())
 
 
+class TestGettempdir(unittest.TestCase):
+    def test_that_it_works(self) -> None:
+        tmpdir = temppathlib.gettempdir()
+
+        original_tmpdir = tempfile.gettempdir()
+        self.assertEqual(original_tmpdir, str(tmpdir))
+
+
 if __name__ == '__main__':
     unittest.main()
