@@ -27,7 +27,7 @@ jobs:
         run: ./precommit.py
 
       - name: Upload Coverage
-        run: coveralls
+        run: coveralls --service=github
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COVERALLS_FLAG_NAME: ${{ matrix.python-version }}
@@ -42,6 +42,6 @@ jobs:
       - name: Finish Coveralls
         run: |
           pip3 install --upgrade coveralls
-          coveralls --finish
+          coveralls --finish --service=github
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
