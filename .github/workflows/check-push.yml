@@ -32,4 +32,4 @@ jobs:
       - name: Upload coverage to coveralls
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: coveralls
+        run: coveralls --service=github
