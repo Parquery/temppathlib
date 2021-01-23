@@ -1,3 +1,7 @@
+1.1.0
+=====
+* Wrapped `tempfile.gettempdir` (#7)
+
 1.0.4
 =====
 * Added support for Python 3.6, 3.7 and 3.8
