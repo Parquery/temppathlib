@@ -16,7 +16,7 @@ class removing_tree:  # pylint: disable=invalid-name
         elif isinstance(path, pathlib.Path):
             self.path = path
         else:
-            raise ValueError("Unexpected type of 'path': {}".format(type(path)))
+            raise ValueError(f"Unexpected type of 'path': {type(path)}")
 
     def __enter__(self) -> pathlib.Path:
         """Give back the path that will be removed."""
@@ -75,7 +75,7 @@ class TmpDirIfNecessary:
         elif isinstance(base_tmp_dir, str):
             self.base_tmp_dir = pathlib.Path(base_tmp_dir)
         else:
-            raise ValueError("Unexpected type of 'base_tmp_dir': {}".format(type(base_tmp_dir)))
+            raise ValueError(f"Unexpected type of 'base_tmp_dir': {type(base_tmp_dir)}")
 
         self._path = None  # type: Optional[pathlib.Path]
 
@@ -86,7 +86,7 @@ class TmpDirIfNecessary:
         elif isinstance(path, pathlib.Path):
             self._path = path
         else:
-            raise ValueError("Unexpected type for the argument `path`: {}".format(type(path)))
+            raise ValueError(f"Unexpected type for the argument `path`: {type(path)}")
 
         self.dont_delete = dont_delete_tmp_dir
 
@@ -102,7 +102,7 @@ class TmpDirIfNecessary:
         """Get the underlying path or raise if the path has not been set."""
         if self._path is None:
             raise RuntimeError("The _path has not been set. "
-                               "Are you using {} outside of the context management?".format(self.__class__.__name__))
+                               f"Are you using {self.__class__.__name__} outside of the context management?")
 
         return self._path
 
@@ -156,7 +156,7 @@ class TemporaryDirectory:
         elif isinstance(base_tmp_dir, str):
             self.base_tmp_dir = pathlib.Path(base_tmp_dir)
         else:
-            raise ValueError("Unexpected type of 'base_tmp_dir': {}".format(type(base_tmp_dir)))
+            raise ValueError(f"Unexpected type of 'base_tmp_dir': {type(base_tmp_dir)}")
 
         self.prefix = prefix
         self.dont_delete = dont_delete
@@ -176,7 +176,7 @@ class TemporaryDirectory:
         """Get the underlying path or raise if the path has not been set."""
         if self._path is None:
             raise RuntimeError("The _path has not been set. "
-                               "Are you using {} outside of the context management?".format(self.__class__.__name__))
+                               f"Are you using {self.__class__.__name__} outside of the context management?")
 
         return self._path
 
@@ -231,6 +231,7 @@ class NamedTemporaryFile:
 
         :param delete: whether the file is deleted on close (default True).
         """
+        # pylint: disable=consider-using-with
         self.__tmpfile = tempfile.NamedTemporaryFile(
             mode=mode,
             buffering=buffering,
@@ -243,7 +244,7 @@ class NamedTemporaryFile:
 
         self.path = pathlib.Path(self.__tmpfile.name)
 
-        file = self.__tmpfile.file  # type: ignore
+        file = self.__tmpfile.file
         self.file = file  # type: IO[Any]
         self.delete = delete
 
