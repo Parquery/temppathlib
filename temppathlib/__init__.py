@@ -41,18 +41,32 @@ class TmpDirIfNecessary:
     def __init__(self,
                  path: Union[None, str, pathlib.Path],
                  base_tmp_dir: Union[None, str, pathlib.Path] = None,
-                 dont_delete_tmp_dir: bool = False) -> None:
+                 dont_delete_tmp_dir: bool = False,
+                 prefix: Optional[str] = None,
+                 suffix: Optional[str] = None) -> None:
         """
         Initialize with the given values.
 
-        :param path: provided path to the directory; if specified, no temporary directory is created.
-        :param base_tmp_dir: parent directory of the temporary directories; if not set,
-        the default is used (usually '/tmp'). This path is only used if a temporary directory needs to be created
-        and has no effect if 'path' was provided.
+        :param path:
+            provided path to the directory; if specified, no temporary directory is created.
 
-        :param dont_delete_tmp_dir: if set, the temporary directory is not deleted upon close.
+        :param base_tmp_dir:
+            parent directory of the temporary directories; if not set,
+            the default is used (usually '/tmp'). This path is only used if a temporary directory needs to be created
+            and has no effect if 'path' was provided.
 
-        If the 'path' was provided, this argument has no effect.
+        :param dont_delete_tmp_dir:
+            if set, the temporary directory is not deleted upon close.
+
+            If the 'path' was provided, this argument has no effect.
+
+        :param prefix:
+            If 'prefix' is not None, the name will begin with that prefix,
+            otherwise a default prefix is used.
+
+        :param suffix:
+            If 'suffix' is not None, the name will end with that suffix,
+            otherwise a default suffix is used.
         """
         if base_tmp_dir is None:
             self.base_tmp_dir = base_tmp_dir
@@ -76,6 +90,9 @@ class TmpDirIfNecessary:
 
         self.dont_delete = dont_delete_tmp_dir
 
+        self._prefix = prefix
+        self._suffix = suffix
+
         self.__use_tmp_dir = path is None
 
         self.exited = False
@@ -96,9 +113,10 @@ class TmpDirIfNecessary:
 
         if self._path is None:
             if self.base_tmp_dir is None:
-                self._path = pathlib.Path(tempfile.mkdtemp())
+                self._path = pathlib.Path(tempfile.mkdtemp(prefix=self._prefix, suffix=self._suffix))
             else:
-                self._path = pathlib.Path(tempfile.mkdtemp(dir=str(self.base_tmp_dir)))
+                self._path = pathlib.Path(
+                    tempfile.mkdtemp(dir=str(self.base_tmp_dir), prefix=self._prefix, suffix=self._suffix))
         else:
             self._path.mkdir(exist_ok=True, parents=True)
 
@@ -213,7 +231,6 @@ class NamedTemporaryFile:
 
         :param delete: whether the file is deleted on close (default True).
         """
-        # pylint: disable=too-many-arguments
         self.__tmpfile = tempfile.NamedTemporaryFile(
             mode=mode,
             buffering=buffering,
