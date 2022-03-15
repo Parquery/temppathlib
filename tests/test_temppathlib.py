@@ -94,6 +94,14 @@ class TestTmpDirIfNecessary(unittest.TestCase):
         finally:
             shutil.rmtree(str(basedir))
 
+    def test_prefix(self) -> None:
+        with temppathlib.TmpDirIfNecessary(path=None, prefix="some_prefix") as tmp_dir:
+            self.assertTrue(tmp_dir.path.name.startswith("some_prefix"))
+
+    def test_suffix(self) -> None:
+        with temppathlib.TmpDirIfNecessary(path=None, suffix="some_suffix") as tmp_dir:
+            self.assertTrue(tmp_dir.path.name.endswith("some_suffix"))
+
 
 class TestTemporaryDirectory(unittest.TestCase):
     def test_that_it_works(self) -> None:
