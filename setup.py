@@ -28,10 +28,11 @@ setup(
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
         # yapf: enable
     ],
     keywords='tempfile pathlib temporary file directory mkdtemp mkstemp',
@@ -40,8 +41,8 @@ setup(
     extras_require={
         'dev': [
             # yapf: disable
-            'mypy==0.790',
-            'pylint==2.6.0',
+            'mypy==0.941',
+            'pylint==2.12.2',
             'yapf==0.20.2',
             'tox>=3,<4',
             'coverage>=5,<6',

@@ -24,7 +24,7 @@ class TestRemovingTree(unittest.TestCase):
                 self.assertTrue(pth.exists())
 
                 subpth = pth / 'oi.txt'
-                with subpth.open('wt') as fid:
+                with subpth.open('wt', encoding='utf-8') as fid:
                     fid.write('hey!')
                     fid.flush()
 
@@ -45,20 +45,20 @@ class TestRemovingTree(unittest.TestCase):
             dir2 = tmp_dir / "dir2"
             dir2.mkdir()
 
-            names = sorted(list([pth.name for pth in tmp_dir.iterdir()]))
+            names = sorted(pth.name for pth in tmp_dir.iterdir())
             self.assertListEqual(names, ['dir1', 'dir2'])
 
             # context manager invoked without enter does not delete the path.
             temppathlib.removing_tree(path=dir1)
 
-            names = sorted(list([pth.name for pth in tmp_dir.iterdir()]))
+            names = sorted(pth.name for pth in tmp_dir.iterdir())
             self.assertListEqual(names, ['dir1', 'dir2'])
 
             # context manager invoked with enter does delete the path.
             with temppathlib.removing_tree(path=dir1):
                 pass
 
-            names = sorted(list([pth.name for pth in tmp_dir.iterdir()]))
+            names = sorted(pth.name for pth in tmp_dir.iterdir())
             self.assertListEqual(names, ['dir2'])
         finally:
             if tmp_dir.exists():
