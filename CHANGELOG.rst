@@ -1,6 +1,11 @@
+1.2.0
+=====
+* Revisited the supported Python versions up to 3.10 (#13)
+* Supported prefix and suffix in ``TmpDirIfNecessary`` (#12)
+
 1.1.0
 =====
-* Wrapped `tempfile.gettempdir` (#7)
+* Wrapped ``tempfile.gettempdir`` (#7)
 
 1.0.4
 =====
